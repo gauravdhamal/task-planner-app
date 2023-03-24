@@ -19,7 +19,7 @@ public interface UserService {
 	 * @throws NoRecordFoundException : If user not found then will throw
 	 *                                NoRecordFoundException.
 	 */
-	public UserDTO getUser(Integer userId) throws NoRecordFoundException;
+	public UserDTO getUserById(Integer userId) throws NoRecordFoundException;
 
 	/**
 	 * 

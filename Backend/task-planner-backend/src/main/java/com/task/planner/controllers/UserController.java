@@ -30,8 +30,8 @@ public class UserController {
 	}
 
 	@GetMapping("/get/{userId}")
-	public ResponseEntity<UserDTO> getUser(@PathVariable("userId") Integer userId) throws NoRecordFoundException {
-		UserDTO userDTO = userService.getUser(userId);
+	public ResponseEntity<UserDTO> getUserById(@PathVariable("userId") Integer userId) throws NoRecordFoundException {
+		UserDTO userDTO = userService.getUserById(userId);
 		return new ResponseEntity<UserDTO>(userDTO, HttpStatus.ACCEPTED);
 	}
 

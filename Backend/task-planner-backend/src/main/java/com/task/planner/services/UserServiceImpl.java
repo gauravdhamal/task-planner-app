@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDTO getUser(Integer userId) throws NoRecordFoundException {
+	public UserDTO getUserById(Integer userId) throws NoRecordFoundException {
 		User user = userRepository.findById(userId)
 				.orElseThrow(() -> new NoRecordFoundException("User not found with Id : " + userId));
 		UserDTO userDTO = modelMapper.map(user, UserDTO.class);
