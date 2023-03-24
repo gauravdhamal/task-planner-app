@@ -1,0 +1,19 @@
+Create User :-
+{
+  "userId": 0,
+  "name": "Gaurav",
+  "username": "gaurav@gmail.com",
+  "password": "password",
+  "role": "EMPLOYEE",
+  "gender": "MALE"
+}
+
+Create Task :-
+{
+  "taskId": 0,
+  "type": "BUG",
+  "description": "This is a big task.",
+  "status": "INCOMPLETE",
+  "priority": "HIGH",
+  "comment": "This task does not belong to any user."
+}

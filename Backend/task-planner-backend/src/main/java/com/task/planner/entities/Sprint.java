@@ -1,6 +1,6 @@
 package com.task.planner.entities;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,9 +25,9 @@ public class Sprint {
 
 	private String name;
 
-	private LocalDateTime startDate;
+	private LocalDate startDate;
 
-	private LocalDateTime endDate;
+	private LocalDate endDate;
 
 	@OneToMany(mappedBy = "sprint")
 	List<Task> tasks = new ArrayList<>();
