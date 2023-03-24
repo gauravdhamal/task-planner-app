@@ -1,5 +1,7 @@
 package com.task.planner.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,11 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.task.planner.dtos.SprintDTO;
+import com.task.planner.entities.Sprint;
 import com.task.planner.exceptions.NoRecordFoundException;
 import com.task.planner.services.SprintService;
 
 @RestController
-@RequestMapping("/sprint")
+@RequestMapping("/sprints")
 public class SprintController {
 
 	@Autowired
@@ -48,6 +51,12 @@ public class SprintController {
 			throws NoRecordFoundException {
 		String result = sprintService.deleteSprint(sprintId);
 		return new ResponseEntity<String>(result, HttpStatus.OK);
+	}
+
+	@GetMapping("/all")
+	public ResponseEntity<List<Sprint>> getAllSprints() throws NoRecordFoundException {
+		List<Sprint> sprints = sprintService.getAllSprints();
+		return new ResponseEntity<List<Sprint>>(sprints, HttpStatus.OK);
 	}
 
 }

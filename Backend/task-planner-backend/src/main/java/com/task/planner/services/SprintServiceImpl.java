@@ -1,5 +1,7 @@
 package com.task.planner.services;
 
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +23,7 @@ public class SprintServiceImpl implements SprintService {
 	@Override
 	public SprintDTO createSprint(SprintDTO sprintDTO) {
 		Sprint sprint = modelMapper.map(sprintDTO, Sprint.class);
-		sprintRepository.save(sprint);
+		sprint = sprintRepository.save(sprint);
 		sprintDTO = modelMapper.map(sprint, SprintDTO.class);
 		return sprintDTO;
 	}
@@ -57,6 +59,16 @@ public class SprintServiceImpl implements SprintService {
 				.orElseThrow(() -> new NoRecordFoundException("Sprint not found with Id : " + sprintId));
 		sprintRepository.delete(sprint);
 		return "Sprint removed from database with Id : " + sprintId + ". Removed from database.";
+	}
+
+	@Override
+	public List<Sprint> getAllSprints() throws NoRecordFoundException {
+		List<Sprint> sprints = sprintRepository.findAll();
+		if (sprints.isEmpty()) {
+			throw new NoRecordFoundException("No any sprint found in database.");
+		} else {
+			return sprints;
+		}
 	}
 
 }

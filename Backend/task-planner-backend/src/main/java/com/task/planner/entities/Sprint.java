@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 public class Sprint {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer sprintId;
 
 	private String name;

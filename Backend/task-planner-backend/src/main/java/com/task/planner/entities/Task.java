@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 public class Task {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer taskId;
 
 	@Enumerated(EnumType.STRING)
