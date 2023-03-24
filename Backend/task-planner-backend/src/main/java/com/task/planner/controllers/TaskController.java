@@ -1,5 +1,7 @@
 package com.task.planner.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +19,7 @@ import com.task.planner.exceptions.NoRecordFoundException;
 import com.task.planner.services.TaskService;
 
 @RestController
-@RequestMapping("/task")
+@RequestMapping("/tasks")
 public class TaskController {
 
 	@Autowired
@@ -46,6 +48,12 @@ public class TaskController {
 	public ResponseEntity<String> deleteTask(@PathVariable("taskId") Integer taskId) throws NoRecordFoundException {
 		String result = taskService.deleteTask(taskId);
 		return new ResponseEntity<String>(result, HttpStatus.ACCEPTED);
+	}
+
+	@GetMapping("/all")
+	public ResponseEntity<List<TaskDTO>> getAllTasks() throws NoRecordFoundException {
+		List<TaskDTO> taskDTOs = taskService.getAllTasks();
+		return new ResponseEntity<List<TaskDTO>>(taskDTOs, HttpStatus.OK);
 	}
 
 }

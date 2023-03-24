@@ -1,5 +1,7 @@
 package com.task.planner.services;
 
+import java.util.List;
+
 import com.task.planner.dtos.TaskDTO;
 import com.task.planner.exceptions.NoRecordFoundException;
 
@@ -47,5 +49,13 @@ public interface TaskService {
 	 *                                at runtime.
 	 */
 	public String deleteTask(Integer taskId) throws NoRecordFoundException;
+
+	/**
+	 * 
+	 * @return : List<TaskDTO> which contains all information about tasks.
+	 * @throws NoRecordFoundException : If we don't found any task then we throw
+	 *                                NoRecordFoundException.
+	 */
+	public List<TaskDTO> getAllTasks() throws NoRecordFoundException;
 
 }

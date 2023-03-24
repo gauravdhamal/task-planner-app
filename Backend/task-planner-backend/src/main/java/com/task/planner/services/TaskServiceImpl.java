@@ -1,5 +1,8 @@
 package com.task.planner.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,6 +64,20 @@ public class TaskServiceImpl implements TaskService {
 				.orElseThrow(() -> new NoRecordFoundException("Task not found with Id : " + taskId));
 		taskRepository.delete(task);
 		return "Task with Id : " + taskId + ". Removed from database.";
+	}
+
+	@Override
+	public List<TaskDTO> getAllTasks() throws NoRecordFoundException {
+		List<Task> tasks = taskRepository.findAll();
+		if (tasks.isEmpty()) {
+			throw new NoRecordFoundException("No any task found in database.");
+		} else {
+			List<TaskDTO> taskDTOs = new ArrayList<>();
+			for (Task task : tasks) {
+				taskDTOs.add(modelMapper.map(task, TaskDTO.class));
+			}
+			return taskDTOs;
+		}
 	}
 
 }
