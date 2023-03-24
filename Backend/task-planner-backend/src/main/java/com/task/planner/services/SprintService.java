@@ -3,6 +3,7 @@ package com.task.planner.services;
 import java.util.List;
 
 import com.task.planner.dtos.SprintDTO;
+import com.task.planner.dtos.TaskDTO;
 import com.task.planner.exceptions.NoRecordFoundException;
 
 public interface SprintService {
@@ -54,4 +55,34 @@ public interface SprintService {
 	 *                                is empty.
 	 */
 	public List<SprintDTO> getAllSprints() throws NoRecordFoundException;
+
+	/**
+	 * 
+	 * @param taskId   : To find the task in database.
+	 * @param sprintId : To find the sprint inside database.
+	 * @return : String message about task is inserted inside Collection of tasks.
+	 * @throws NoRecordFoundException : If task or sprint is not found in database
+	 *                                then NoRecordFoundException will be thrown.
+	 */
+	public String assignTaskToSprint(Integer taskId, Integer sprintId) throws NoRecordFoundException;
+
+	/**
+	 * 
+	 * @param taskId   : To find the task in database.
+	 * @param sprintId : To find the sprint inside database.
+	 * @return : String message about task is removed from Collection of tasks.
+	 * @throws NoRecordFoundException : If task or sprint is not found in database
+	 *                                then NoRecordFoundException will be thrown.
+	 */
+	public String removeTaskFromSprint(Integer taskId, Integer sprintId) throws NoRecordFoundException;
+
+	/**
+	 * 
+	 * @param sprintId : To find sprint with Id.
+	 * @return : List<TaskDTO> which belongs to particular sprint.
+	 * @throws NoRecordFoundException : If no any task found then will throw
+	 *                                NoRecordFoundException.
+	 */
+	public List<TaskDTO> getAllTasksFromSprint(Integer sprintId) throws NoRecordFoundException;
+
 }

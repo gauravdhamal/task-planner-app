@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.task.planner.dtos.SprintDTO;
+import com.task.planner.dtos.TaskDTO;
 import com.task.planner.exceptions.NoRecordFoundException;
 import com.task.planner.services.SprintService;
 
@@ -56,6 +57,27 @@ public class SprintController {
 	public ResponseEntity<List<SprintDTO>> getAllSprints() throws NoRecordFoundException {
 		List<SprintDTO> sprints = sprintService.getAllSprints();
 		return new ResponseEntity<List<SprintDTO>>(sprints, HttpStatus.OK);
+	}
+
+	@PostMapping("/assignTaskToSprint/{taskId}/{sprintId}")
+	public ResponseEntity<String> assignTaskToSprint(@PathVariable("taskId") Integer taskId,
+			@PathVariable("sprintId") Integer sprintId) throws NoRecordFoundException {
+		String message = sprintService.assignTaskToSprint(taskId, sprintId);
+		return new ResponseEntity<String>(message, HttpStatus.OK);
+	}
+
+	@PostMapping("/removeTaskFromSprint/{taskId}/{sprintId}")
+	public ResponseEntity<String> removeTaskFromSprint(@PathVariable("taskId") Integer taskId,
+			@PathVariable("sprintId") Integer sprintId) throws NoRecordFoundException {
+		String message = sprintService.removeTaskFromSprint(taskId, sprintId);
+		return new ResponseEntity<String>(message, HttpStatus.OK);
+	}
+
+	@GetMapping("/tasks/{taskId}")
+	public ResponseEntity<List<TaskDTO>> getAllTasksFromSprint(@PathVariable("taskId") Integer sprintId)
+			throws NoRecordFoundException {
+		List<TaskDTO> taskDTOs = sprintService.getAllTasksFromSprint(sprintId);
+		return new ResponseEntity<List<TaskDTO>>(taskDTOs, HttpStatus.OK);
 	}
 
 }
