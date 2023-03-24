@@ -40,8 +40,12 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private Gender gender;
 
+	/**
+	 * One user can have many tasks assigned to them.
+	 * So here relation is One to Many bidirectional.
+	 */
 	@JsonIgnore
-	@OneToMany
+	@OneToMany(mappedBy = "user")
 	List<Task> tasks = new ArrayList<>();
 
 }
