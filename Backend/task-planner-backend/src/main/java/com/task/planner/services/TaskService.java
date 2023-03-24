@@ -1,5 +1,51 @@
 package com.task.planner.services;
 
+import com.task.planner.dtos.TaskDTO;
+import com.task.planner.exceptions.NoRecordFoundException;
+
 public interface TaskService {
+
+	/**
+	 * 
+	 * @param taskDTO : Object of TaskDTO contains all details of task.
+	 * @return : TaskDTO object that has been inserted into the database.
+	 */
+	public TaskDTO createTask(TaskDTO taskDTO);
+
+	/**
+	 * 
+	 * @param taskId : Integer if which will be used to find task object in
+	 *               database.
+	 * @return : TaskDTO object that has been found into the database.
+	 * @throws NoRecordFoundException : If Task object does not present then
+	 *                                NoRecordFoundException exception will thrown
+	 *                                at runtime.
+	 */
+	public TaskDTO getTaskById(Integer taskId) throws NoRecordFoundException;
+
+	/**
+	 * 
+	 * @param taskId  : Integer if which will be used to find task object in
+	 *                database.
+	 * @param taskDTO : object of TaskDTO which contains details that needs to be
+	 *                updated.
+	 * @return : Updated taskDTO object.
+	 * @throws NoRecordFoundException : If Task object does not present then
+	 *                                NoRecordFoundException exception will thrown
+	 *                                at runtime.
+	 */
+	public TaskDTO updateTask(Integer taskId, TaskDTO taskDTO) throws NoRecordFoundException;
+
+	/**
+	 * 
+	 * @param taskId : Integer if which will be used to find task object in
+	 *               database.
+	 * @return : String message which contains information about the operation
+	 *         weather it succeeded or not.
+	 * @throws NoRecordFoundException : If Task object does not present then
+	 *                                NoRecordFoundException exception will thrown
+	 *                                at runtime.
+	 */
+	public String deleteTask(Integer taskId) throws NoRecordFoundException;
 
 }
