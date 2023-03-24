@@ -1,5 +1,8 @@
 package com.task.planner.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,6 +61,20 @@ public class UserServiceImpl implements UserService {
 				.orElseThrow(() -> new NoRecordFoundException("User not found with Id : " + userId));
 		userRepository.delete(user);
 		return "User removed from database with Id : " + userId;
+	}
+
+	@Override
+	public List<UserDTO> getAllUsers() throws NoRecordFoundException {
+		List<User> users = userRepository.findAll();
+		if (users.isEmpty()) {
+			throw new NoRecordFoundException("No any user found in database.");
+		} else {
+			List<UserDTO> userDTOs = new ArrayList<>();
+			for (User user : users) {
+				userDTOs.add(modelMapper.map(user, UserDTO.class));
+			}
+			return userDTOs;
+		}
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.task.planner.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,4 +49,11 @@ public class UserController {
 		String message = userService.deleteUser(userId);
 		return new ResponseEntity<String>(message, HttpStatus.ACCEPTED);
 	}
+
+	@GetMapping("/all")
+	public ResponseEntity<List<UserDTO>> getAllUsers() throws NoRecordFoundException {
+		List<UserDTO> dtos = userService.getAllUsers();
+		return new ResponseEntity<List<UserDTO>>(dtos, HttpStatus.OK);
+	}
+
 }

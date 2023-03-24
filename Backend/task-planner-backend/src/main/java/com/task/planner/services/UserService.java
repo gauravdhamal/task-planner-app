@@ -1,5 +1,7 @@
 package com.task.planner.services;
 
+import java.util.List;
+
 import com.task.planner.dtos.UserDTO;
 import com.task.planner.exceptions.NoRecordFoundException;
 
@@ -39,5 +41,13 @@ public interface UserService {
 	 *                                NoRecordFoundException.
 	 */
 	public String deleteUser(Integer userId) throws NoRecordFoundException;
+
+	/**
+	 * 
+	 * @return : List<UserDTO> contains information about all users.
+	 * @throws NoRecordFoundException : If List of user is empty then it will throw
+	 *                                an NoRecordFoundException.
+	 */
+	public List<UserDTO> getAllUsers() throws NoRecordFoundException;
 
 }
