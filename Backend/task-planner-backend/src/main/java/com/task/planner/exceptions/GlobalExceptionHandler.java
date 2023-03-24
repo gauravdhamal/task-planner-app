@@ -15,8 +15,27 @@ public class GlobalExceptionHandler {
 
 	/**
 	 * 
-	 * @param methodArgumentNotValidException Object of MethodArgumentNotValidException contains all data of exception.
-	 * @return Response Entity along with proper HttpStatus code.
+	 * @param noRecordFoundException : Object of noRecordFoundException contains all
+	 *                               information about noRecordFoundException.
+	 * @param webRequest             : Object of WebRequest contains all request
+	 *                               data from header.
+	 * @return : Response Entity along with proper HttpStatus code.
+	 */
+	@ExceptionHandler(NoRecordFoundException.class)
+	public ResponseEntity<MyErrorDetails> noRecordFoundExceptionHandler(NoRecordFoundException noRecordFoundException,
+			WebRequest webRequest) {
+		System.out.println("NoRecordFoundException handler.");
+		MyErrorDetails error = new MyErrorDetails(LocalDateTime.now(), noRecordFoundException.getMessage(),
+				webRequest.getDescription(false));
+		return new ResponseEntity<MyErrorDetails>(error, HttpStatus.BAD_REQUEST);
+	}
+
+	/**
+	 * 
+	 * @param methodArgumentNotValidException : Object of
+	 *                                        MethodArgumentNotValidException
+	 *                                        contains all data of exception.
+	 * @return : Response Entity along with proper HttpStatus code.
 	 */
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<MyErrorDetails> methodArgumentNotValidExceptionHandler(
@@ -30,9 +49,11 @@ public class GlobalExceptionHandler {
 
 	/**
 	 * 
-	 * @param illegalArgumentException Object of IllegalArgumentException contains all data of exception.
-	 * @param webRequest Object of WebRequest contains all request data from header.
-	 * @return Response Entity along with proper HttpStatus code.
+	 * @param illegalArgumentException : Object of IllegalArgumentException contains
+	 *                                 all data of exception.
+	 * @param webRequest               : Object of WebRequest contains all request
+	 *                                 data from header.
+	 * @return : Response Entity along with proper HttpStatus code.
 	 */
 	@ExceptionHandler(IllegalArgumentException.class)
 	public ResponseEntity<MyErrorDetails> illegalArgumentExceptionHandler(
@@ -45,9 +66,11 @@ public class GlobalExceptionHandler {
 
 	/**
 	 * 
-	 * @param noHandlerFoundException Object of NoHandlerFoundException contains all data of exception.
-	 * @param webRequest Object of WebRequest contains all request data from header.
-	 * @return Response Entity along with proper HttpStatus code.
+	 * @param noHandlerFoundException : Object of NoHandlerFoundException contains
+	 *                                all data of exception.
+	 * @param webRequest              : Object of WebRequest contains all request
+	 *                                data from header.
+	 * @return : Response Entity along with proper HttpStatus code.
 	 */
 	@ExceptionHandler(NoHandlerFoundException.class)
 	public ResponseEntity<MyErrorDetails> noHandlerFoundExceptionHandler(
@@ -60,9 +83,10 @@ public class GlobalExceptionHandler {
 
 	/**
 	 * 
-	 * @param exception Object of Exception contains all data of exception.
-	 * @param webRequest Object of WebRequest contains all request data from header.
-	 * @return Response Entity along with proper HttpStatus code.
+	 * @param exception  : Object of Exception contains all data of exception.
+	 * @param webRequest : Object of WebRequest contains all request data from
+	 *                   header.
+	 * @return : Response Entity along with proper HttpStatus code.
 	 */
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<MyErrorDetails> exceptionHandler(Exception exception, WebRequest webRequest) {
