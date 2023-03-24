@@ -1,5 +1,6 @@
 package com.task.planner.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -62,12 +63,16 @@ public class SprintServiceImpl implements SprintService {
 	}
 
 	@Override
-	public List<Sprint> getAllSprints() throws NoRecordFoundException {
+	public List<SprintDTO> getAllSprints() throws NoRecordFoundException {
 		List<Sprint> sprints = sprintRepository.findAll();
 		if (sprints.isEmpty()) {
 			throw new NoRecordFoundException("No any sprint found in database.");
 		} else {
-			return sprints;
+			List<SprintDTO> sprintDTOs = new ArrayList<>();
+			for (Sprint sprint : sprints) {
+				sprintDTOs.add(modelMapper.map(sprint, SprintDTO.class));
+			}
+			return sprintDTOs;
 		}
 	}
 

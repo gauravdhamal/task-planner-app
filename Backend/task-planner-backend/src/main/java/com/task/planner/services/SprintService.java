@@ -3,7 +3,6 @@ package com.task.planner.services;
 import java.util.List;
 
 import com.task.planner.dtos.SprintDTO;
-import com.task.planner.entities.Sprint;
 import com.task.planner.exceptions.NoRecordFoundException;
 
 public interface SprintService {
@@ -50,9 +49,9 @@ public interface SprintService {
 
 	/**
 	 * 
-	 * @return : Collection object of List<Sprint> will be returned.
+	 * @return : Collection object of List<SprintDTO> will be returned.
 	 * @throws NoRecordFoundException : It will throw NoRecordFoundException if list
 	 *                                is empty.
 	 */
-	public List<Sprint> getAllSprints() throws NoRecordFoundException;
+	public List<SprintDTO> getAllSprints() throws NoRecordFoundException;
 }
