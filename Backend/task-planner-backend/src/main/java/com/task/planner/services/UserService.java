@@ -10,7 +10,7 @@ public interface UserService {
 	 * @param userDto : Object of user contains all details of User.
 	 * @return : userDto that has been inserted into the database.
 	 */
-	public UserDTO createUser(UserDTO userDto);
+	public UserDTO createUser(UserDTO userDTO);
 
 	/**
 	 * 
@@ -29,7 +29,7 @@ public interface UserService {
 	 * @throws NoRecordFoundException : If user not found then will throw
 	 *                                NoRecordFoundException.
 	 */
-	public UserDTO updateUser(Integer userId, UserDTO userDto) throws NoRecordFoundException;
+	public UserDTO updateUser(Integer userId, UserDTO userDTO) throws NoRecordFoundException;
 
 	/**
 	 * 
