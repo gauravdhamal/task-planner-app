@@ -24,6 +24,8 @@ import com.task.planner.enums.Status;
 import com.task.planner.exceptions.NoRecordFoundException;
 import com.task.planner.services.TaskService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/tasks")
 @CrossOrigin(origins = "http://127.0.0.1:5500")
@@ -33,7 +35,7 @@ public class TaskController {
 	private TaskService taskService;
 
 	@PostMapping("/create")
-	public ResponseEntity<TaskDTO> createTask(@RequestBody TaskDTO taskDTO) {
+	public ResponseEntity<TaskDTO> createTask(@RequestBody @Valid TaskDTO taskDTO) {
 		taskDTO = taskService.createTask(taskDTO);
 		return new ResponseEntity<TaskDTO>(taskDTO, HttpStatus.ACCEPTED);
 	}
@@ -45,8 +47,8 @@ public class TaskController {
 	}
 
 	@PutMapping("/update/{taskId}")
-	public ResponseEntity<TaskDTO> updateTask(@PathVariable("taskId") Integer taskId, @RequestBody TaskDTO taskDTO)
-			throws NoRecordFoundException {
+	public ResponseEntity<TaskDTO> updateTask(@PathVariable("taskId") Integer taskId,
+			@RequestBody @Valid TaskDTO taskDTO) throws NoRecordFoundException {
 		taskDTO = taskService.updateTask(taskId, taskDTO);
 		return new ResponseEntity<TaskDTO>(taskDTO, HttpStatus.ACCEPTED);
 	}

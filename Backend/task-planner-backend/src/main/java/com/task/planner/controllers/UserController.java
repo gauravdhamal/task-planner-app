@@ -20,6 +20,8 @@ import com.task.planner.dtos.UserDTO;
 import com.task.planner.exceptions.NoRecordFoundException;
 import com.task.planner.services.UserService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/users")
 @CrossOrigin(origins = "http://127.0.0.1:5500")
@@ -29,7 +31,7 @@ public class UserController {
 	private UserService userService;
 
 	@PostMapping("/create")
-	public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
+	public ResponseEntity<UserDTO> createUser(@RequestBody @Valid UserDTO userDTO) {
 		userDTO = userService.createUser(userDTO);
 		return new ResponseEntity<UserDTO>(userDTO, HttpStatus.ACCEPTED);
 	}
@@ -41,8 +43,8 @@ public class UserController {
 	}
 
 	@PutMapping("/update/{userId}")
-	public ResponseEntity<UserDTO> updateUser(@PathVariable("userId") Integer userId, @RequestBody UserDTO userDTO)
-			throws NoRecordFoundException {
+	public ResponseEntity<UserDTO> updateUser(@PathVariable("userId") Integer userId,
+			@RequestBody @Valid UserDTO userDTO) throws NoRecordFoundException {
 		userDTO = userService.updateUser(userId, userDTO);
 		return new ResponseEntity<UserDTO>(userDTO, HttpStatus.ACCEPTED);
 	}

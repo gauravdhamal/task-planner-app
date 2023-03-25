@@ -20,6 +20,8 @@ import com.task.planner.dtos.TaskDTO;
 import com.task.planner.exceptions.NoRecordFoundException;
 import com.task.planner.services.SprintService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/sprints")
 @CrossOrigin(origins = "http://127.0.0.1:5500")
@@ -29,7 +31,7 @@ public class SprintController {
 	private SprintService sprintService;
 
 	@PostMapping("/create")
-	public ResponseEntity<SprintDTO> createSprint(@RequestBody SprintDTO sprintDTO) {
+	public ResponseEntity<SprintDTO> createSprint(@RequestBody @Valid SprintDTO sprintDTO) {
 		sprintDTO = sprintService.createSprint(sprintDTO);
 		return new ResponseEntity<SprintDTO>(sprintDTO, HttpStatus.ACCEPTED);
 	}
@@ -43,7 +45,7 @@ public class SprintController {
 
 	@PutMapping("/update/{sprintId}")
 	public ResponseEntity<SprintDTO> updateSprint(@PathVariable("sprintId") Integer sprintId,
-			@RequestBody SprintDTO sprintDTO) throws NoRecordFoundException {
+			@RequestBody @Valid SprintDTO sprintDTO) throws NoRecordFoundException {
 		sprintDTO = sprintService.updateSprint(sprintId, sprintDTO);
 		return new ResponseEntity<SprintDTO>(sprintDTO, HttpStatus.ACCEPTED);
 	}

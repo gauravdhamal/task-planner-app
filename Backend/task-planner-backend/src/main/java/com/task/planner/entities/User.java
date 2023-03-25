@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.task.planner.enums.Gender;
 import com.task.planner.enums.Role;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -30,6 +31,7 @@ public class User {
 
 	private String name;
 
+	@Column(unique = true)
 	private String username;
 
 	private String password;
@@ -41,8 +43,8 @@ public class User {
 	private Gender gender;
 
 	/**
-	 * One user can have many tasks assigned to them.
-	 * So here relation is One to Many bidirectional.
+	 * One user can have many tasks assigned to them. So here relation is One to
+	 * Many bidirectional.
 	 */
 	@JsonIgnore
 	@OneToMany(mappedBy = "user")
