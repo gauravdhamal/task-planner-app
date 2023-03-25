@@ -73,8 +73,8 @@ public class SprintController {
 		return new ResponseEntity<String>(message, HttpStatus.OK);
 	}
 
-	@GetMapping("/tasks/{taskId}")
-	public ResponseEntity<List<TaskDTO>> getAllTasksFromSprint(@PathVariable("taskId") Integer sprintId)
+	@GetMapping("/tasks/{sprintId}")
+	public ResponseEntity<List<TaskDTO>> getAllTasksFromSprint(@PathVariable("sprintId") Integer sprintId)
 			throws NoRecordFoundException {
 		List<TaskDTO> taskDTOs = sprintService.getAllTasksFromSprint(sprintId);
 		return new ResponseEntity<List<TaskDTO>>(taskDTOs, HttpStatus.OK);
