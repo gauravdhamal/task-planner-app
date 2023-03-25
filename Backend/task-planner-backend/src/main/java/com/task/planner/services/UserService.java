@@ -2,6 +2,7 @@ package com.task.planner.services;
 
 import java.util.List;
 
+import com.task.planner.dtos.TaskDTO;
 import com.task.planner.dtos.UserDTO;
 import com.task.planner.exceptions.NoRecordFoundException;
 
@@ -49,5 +50,15 @@ public interface UserService {
 	 *                                an NoRecordFoundException.
 	 */
 	public List<UserDTO> getAllUsers() throws NoRecordFoundException;
+
+	/**
+	 * 
+	 * @param userId : To find user from database.
+	 * @return : List<TaskDTO> which contains all information about task belongs to
+	 *         particular userId.
+	 * @throws NoRecordFoundException : If user don't have any task assigned then
+	 *                                will throw NoRecordFoundException.
+	 */
+	public List<TaskDTO> getAllTaskByUserId(Integer userId) throws NoRecordFoundException;
 
 }

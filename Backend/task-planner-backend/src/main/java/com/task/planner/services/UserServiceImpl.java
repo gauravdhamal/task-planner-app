@@ -7,9 +7,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.task.planner.dtos.TaskDTO;
 import com.task.planner.dtos.UserDTO;
+import com.task.planner.entities.Task;
 import com.task.planner.entities.User;
 import com.task.planner.exceptions.NoRecordFoundException;
+import com.task.planner.repositories.TaskRepository;
 import com.task.planner.repositories.UserRepository;
 
 @Service
@@ -17,6 +20,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
+
+	@Autowired
+	private TaskRepository taskRepository;
 
 	@Autowired
 	private ModelMapper modelMapper;
@@ -74,6 +80,22 @@ public class UserServiceImpl implements UserService {
 				userDTOs.add(modelMapper.map(user, UserDTO.class));
 			}
 			return userDTOs;
+		}
+	}
+
+	@Override
+	public List<TaskDTO> getAllTaskByUserId(Integer userId) throws NoRecordFoundException {
+		User user = userRepository.findById(userId)
+				.orElseThrow(() -> new NoRecordFoundException("User not found with Id : " + userId));
+		List<Task> tasks = taskRepository.findByUserId(user.getUserId());
+		if (tasks.isEmpty()) {
+			throw new NoRecordFoundException("User don't have any task assigned to them.");
+		} else {
+			List<TaskDTO> taskDTOs = new ArrayList<>();
+			for (Task task : tasks) {
+				taskDTOs.add(modelMapper.map(task, TaskDTO.class));
+			}
+			return taskDTOs;
 		}
 	}
 

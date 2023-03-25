@@ -121,7 +121,7 @@ public class SprintServiceImpl implements SprintService {
 	public List<TaskDTO> getAllTasksFromSprint(Integer sprintId) throws NoRecordFoundException {
 		Sprint sprint = sprintRepository.findById(sprintId)
 				.orElseThrow(() -> new NoRecordFoundException("Sprint not found with Id : " + sprintId));
-		List<Task> tasks = sprint.getTasks();
+		List<Task> tasks = taskRepository.findBySprintId(sprint.getSprintId());
 		if (tasks.isEmpty()) {
 			throw new NoRecordFoundException("No ant task found under sprint with Id : " + sprintId);
 		} else {

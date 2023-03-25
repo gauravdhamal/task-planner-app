@@ -14,12 +14,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.task.planner.dtos.TaskDTO;
 import com.task.planner.dtos.UserDTO;
 import com.task.planner.exceptions.NoRecordFoundException;
 import com.task.planner.services.UserService;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
 
 	@Autowired
@@ -54,6 +55,13 @@ public class UserController {
 	public ResponseEntity<List<UserDTO>> getAllUsers() throws NoRecordFoundException {
 		List<UserDTO> dtos = userService.getAllUsers();
 		return new ResponseEntity<List<UserDTO>>(dtos, HttpStatus.OK);
+	}
+
+	@GetMapping("/tasks/{userId}")
+	public ResponseEntity<List<TaskDTO>> getAllTaskByUserId(@PathVariable("userId") Integer userId)
+			throws NoRecordFoundException {
+		List<TaskDTO> taskDTOs = userService.getAllTaskByUserId(userId);
+		return new ResponseEntity<List<TaskDTO>>(taskDTOs, HttpStatus.OK);
 	}
 
 }
