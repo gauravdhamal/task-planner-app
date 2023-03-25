@@ -5,6 +5,8 @@ import java.util.List;
 import com.task.planner.dtos.SprintDTO;
 import com.task.planner.dtos.TaskDTO;
 import com.task.planner.dtos.UserDTO;
+import com.task.planner.enums.Priority;
+import com.task.planner.enums.Status;
 import com.task.planner.exceptions.NoRecordFoundException;
 
 public interface TaskService {
@@ -77,5 +79,23 @@ public interface TaskService {
 	 *                                NoRecordFoundException will be thrown.
 	 */
 	public SprintDTO getSprintByTaskId(Integer taskId) throws NoRecordFoundException;
+
+	/**
+	 * 
+	 * @param taskId : To find task in database.
+	 * @return : String message contains information about operation.
+	 * @throws NoRecordFoundException : If task not found then
+	 *                                NoRecordFoundException will be thrown.
+	 */
+	public String changeStatusOfTask(Integer taskId, Status status) throws NoRecordFoundException;
+
+	/**
+	 * 
+	 * @param taskId : To find task in database.
+	 * @return : String message contains information about operation.
+	 * @throws NoRecordFoundException : If task not found then
+	 *                                NoRecordFoundException will be thrown.
+	 */
+	public String changePriorityOfTask(Integer taskId, Priority priority) throws NoRecordFoundException;
 
 }

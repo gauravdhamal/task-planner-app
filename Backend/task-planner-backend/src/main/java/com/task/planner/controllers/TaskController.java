@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.task.planner.dtos.SprintDTO;
 import com.task.planner.dtos.TaskDTO;
 import com.task.planner.dtos.UserDTO;
+import com.task.planner.enums.Priority;
+import com.task.planner.enums.Status;
 import com.task.planner.exceptions.NoRecordFoundException;
 import com.task.planner.services.TaskService;
 
@@ -70,6 +73,20 @@ public class TaskController {
 			throws NoRecordFoundException {
 		UserDTO userDTO = taskService.getUserByTaskId(taskId);
 		return new ResponseEntity<UserDTO>(userDTO, HttpStatus.OK);
+	}
+
+	@PatchMapping("/change/status/{taskId}/{status}")
+	public ResponseEntity<String> changeStatusOfTask(@PathVariable("taskId") Integer taskId,
+			@PathVariable("status") Status status) throws NoRecordFoundException {
+		String message = taskService.changeStatusOfTask(taskId, status);
+		return new ResponseEntity<String>(message, HttpStatus.OK);
+	}
+
+	@PatchMapping("/change/priority/{taskId}/{priority}")
+	public ResponseEntity<String> changePriorityOfTask(@PathVariable("taskId") Integer taskId,
+			@PathVariable("priority") Priority priority) throws NoRecordFoundException {
+		String message = taskService.changePriorityOfTask(taskId, priority);
+		return new ResponseEntity<String>(message, HttpStatus.OK);
 	}
 
 }

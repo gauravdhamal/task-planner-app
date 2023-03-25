@@ -11,6 +11,8 @@ import com.task.planner.dtos.SprintDTO;
 import com.task.planner.dtos.TaskDTO;
 import com.task.planner.dtos.UserDTO;
 import com.task.planner.entities.Task;
+import com.task.planner.enums.Priority;
+import com.task.planner.enums.Status;
 import com.task.planner.exceptions.NoRecordFoundException;
 import com.task.planner.repositories.TaskRepository;
 
@@ -104,6 +106,24 @@ public class TaskServiceImpl implements TaskService {
 			SprintDTO sprintDTO = modelMapper.map(task.getSprint(), SprintDTO.class);
 			return sprintDTO;
 		}
+	}
+
+	@Override
+	public String changeStatusOfTask(Integer taskId, Status status) throws NoRecordFoundException {
+		Task task = taskRepository.findById(taskId)
+				.orElseThrow(() -> new NoRecordFoundException("Task not found with Id : " + taskId));
+		Status prevStatus = task.getStatus();
+		task.setStatus(status);
+		return prevStatus + " changed to " + status;
+	}
+
+	@Override
+	public String changePriorityOfTask(Integer taskId, Priority priority) throws NoRecordFoundException {
+		Task task = taskRepository.findById(taskId)
+				.orElseThrow(() -> new NoRecordFoundException("Task not found with Id : " + taskId));
+		Priority prevPriority = task.getPriority();
+		task.setPriority(priority);
+		return prevPriority + " changed to " + priority;
 	}
 
 }
