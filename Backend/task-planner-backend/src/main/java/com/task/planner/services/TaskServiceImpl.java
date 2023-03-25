@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.task.planner.dtos.TaskDTO;
+import com.task.planner.entities.Sprint;
 import com.task.planner.entities.Task;
+import com.task.planner.entities.User;
 import com.task.planner.exceptions.NoRecordFoundException;
 import com.task.planner.repositories.TaskRepository;
 
@@ -77,6 +79,28 @@ public class TaskServiceImpl implements TaskService {
 				taskDTOs.add(modelMapper.map(task, TaskDTO.class));
 			}
 			return taskDTOs;
+		}
+	}
+
+	@Override
+	public User getUserByTaskId(Integer taskId) throws NoRecordFoundException {
+		Task task = taskRepository.findById(taskId)
+				.orElseThrow(() -> new NoRecordFoundException("Task not found with Id : " + taskId));
+		if (task.getUser() == null) {
+			throw new NoRecordFoundException("Task does not assigned to any user.");
+		} else {
+			return task.getUser();
+		}
+	}
+
+	@Override
+	public Sprint getSprintByTaskId(Integer taskId) throws NoRecordFoundException {
+		Task task = taskRepository.findById(taskId)
+				.orElseThrow(() -> new NoRecordFoundException("Task not found with Id : " + taskId));
+		if (task.getSprint() == null) {
+			throw new NoRecordFoundException("Task does not belongs to any Sprint.");
+		} else {
+			return task.getSprint();
 		}
 	}
 

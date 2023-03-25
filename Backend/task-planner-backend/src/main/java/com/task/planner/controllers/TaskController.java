@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.task.planner.dtos.TaskDTO;
+import com.task.planner.entities.Sprint;
+import com.task.planner.entities.User;
 import com.task.planner.exceptions.NoRecordFoundException;
 import com.task.planner.services.TaskService;
 
@@ -54,6 +56,19 @@ public class TaskController {
 	public ResponseEntity<List<TaskDTO>> getAllTasks() throws NoRecordFoundException {
 		List<TaskDTO> taskDTOs = taskService.getAllTasks();
 		return new ResponseEntity<List<TaskDTO>>(taskDTOs, HttpStatus.OK);
+	}
+
+	@GetMapping("/sprint/{taskId}")
+	public ResponseEntity<Sprint> getSprintByTaskId(@PathVariable("taskId") Integer taskId)
+			throws NoRecordFoundException {
+		Sprint sprint = taskService.getSprintByTaskId(taskId);
+		return new ResponseEntity<Sprint>(sprint, HttpStatus.OK);
+	}
+
+	@GetMapping("/user/{taskId}")
+	public ResponseEntity<User> getUserByTaskId(@PathVariable("taskId") Integer taskId) throws NoRecordFoundException {
+		User user = taskService.getUserByTaskId(taskId);
+		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 
 }

@@ -3,6 +3,8 @@ package com.task.planner.services;
 import java.util.List;
 
 import com.task.planner.dtos.TaskDTO;
+import com.task.planner.entities.Sprint;
+import com.task.planner.entities.User;
 import com.task.planner.exceptions.NoRecordFoundException;
 
 public interface TaskService {
@@ -57,5 +59,23 @@ public interface TaskService {
 	 *                                NoRecordFoundException.
 	 */
 	public List<TaskDTO> getAllTasks() throws NoRecordFoundException;
+
+	/**
+	 * 
+	 * @param taskId : To find task in database.
+	 * @return : User which belongs to particular task.
+	 * @throws NoRecordFoundException : If task or user not found then
+	 *                                NoRecordFoundException will be thrown.
+	 */
+	public User getUserByTaskId(Integer taskId) throws NoRecordFoundException;
+
+	/**
+	 * 
+	 * @param taskId : To find task in database.
+	 * @return : Sprint from which this task belongs.
+	 * @throws NoRecordFoundException : If task or sprint not found then
+	 *                                NoRecordFoundException will be thrown.
+	 */
+	public Sprint getSprintByTaskId(Integer taskId) throws NoRecordFoundException;
 
 }
