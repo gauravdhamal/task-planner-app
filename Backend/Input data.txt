@@ -18,3 +18,10 @@ Create Task :-
   "comment": "This task does not belong to any user."
 }
 
+Create Sprint :-
+{
+  "sprintId": 0,
+  "name": "Sprint1",
+  "startDate": "2023-03-26",
+  "endDate": "2023-03-30"
+}
