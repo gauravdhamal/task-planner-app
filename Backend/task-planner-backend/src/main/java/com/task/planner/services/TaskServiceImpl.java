@@ -7,10 +7,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.task.planner.dtos.SprintDTO;
 import com.task.planner.dtos.TaskDTO;
-import com.task.planner.entities.Sprint;
+import com.task.planner.dtos.UserDTO;
 import com.task.planner.entities.Task;
-import com.task.planner.entities.User;
 import com.task.planner.exceptions.NoRecordFoundException;
 import com.task.planner.repositories.TaskRepository;
 
@@ -83,24 +83,26 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public User getUserByTaskId(Integer taskId) throws NoRecordFoundException {
+	public UserDTO getUserByTaskId(Integer taskId) throws NoRecordFoundException {
 		Task task = taskRepository.findById(taskId)
 				.orElseThrow(() -> new NoRecordFoundException("Task not found with Id : " + taskId));
 		if (task.getUser() == null) {
 			throw new NoRecordFoundException("Task does not assigned to any user.");
 		} else {
-			return task.getUser();
+			UserDTO userDTO = modelMapper.map(task.getUser(), UserDTO.class);
+			return userDTO;
 		}
 	}
 
 	@Override
-	public Sprint getSprintByTaskId(Integer taskId) throws NoRecordFoundException {
+	public SprintDTO getSprintByTaskId(Integer taskId) throws NoRecordFoundException {
 		Task task = taskRepository.findById(taskId)
 				.orElseThrow(() -> new NoRecordFoundException("Task not found with Id : " + taskId));
 		if (task.getSprint() == null) {
 			throw new NoRecordFoundException("Task does not belongs to any Sprint.");
 		} else {
-			return task.getSprint();
+			SprintDTO sprintDTO = modelMapper.map(task.getSprint(), SprintDTO.class);
+			return sprintDTO;
 		}
 	}
 
