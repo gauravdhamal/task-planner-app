@@ -114,6 +114,7 @@ public class TaskServiceImpl implements TaskService {
 				.orElseThrow(() -> new NoRecordFoundException("Task not found with Id : " + taskId));
 		Status prevStatus = task.getStatus();
 		task.setStatus(status);
+		taskRepository.save(task);
 		return prevStatus + " changed to " + status;
 	}
 
@@ -123,6 +124,7 @@ public class TaskServiceImpl implements TaskService {
 				.orElseThrow(() -> new NoRecordFoundException("Task not found with Id : " + taskId));
 		Priority prevPriority = task.getPriority();
 		task.setPriority(priority);
+		taskRepository.save(task);
 		return prevPriority + " changed to " + priority;
 	}
 
