@@ -61,4 +61,24 @@ public interface UserService {
 	 */
 	public List<TaskDTO> getAllTaskByUserId(Integer userId) throws NoRecordFoundException;
 
+	/**
+	 * 
+	 * @param userId : To find user from database.
+	 * @param taskId : To find Task from database.
+	 * @return : String message contains details of operation performed.
+	 * @throws NoRecordFoundException : If Task or User does not found then throw
+	 *                                NoRecordFoundException.
+	 */
+	public String assignTaskToUser(Integer userId, Integer taskId) throws NoRecordFoundException;
+
+	/**
+	 * 
+	 * @param userId : To find user from database.
+	 * @param taskId : To find Task from database.
+	 * @return : String message contains details of operation performed.
+	 * @throws NoRecordFoundException : If Task or User does not found then throw
+	 *                                NoRecordFoundException.
+	 */
+	public String removeTaskFromUser(Integer userId, Integer taskId) throws NoRecordFoundException;
+
 }

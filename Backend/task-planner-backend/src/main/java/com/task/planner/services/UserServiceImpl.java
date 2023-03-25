@@ -99,4 +99,41 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	@Override
+	public String assignTaskToUser(Integer userId, Integer taskId) throws NoRecordFoundException {
+		User user = userRepository.findById(userId)
+				.orElseThrow(() -> new NoRecordFoundException("User not found with Id : " + userId));
+		Task task = taskRepository.findById(taskId)
+				.orElseThrow(() -> new NoRecordFoundException("Task not found with Id : " + taskId));
+		if (task.getUser() != null) {
+			throw new NoRecordFoundException(
+					"This task already belongs to another user with userId : " + user.getUserId());
+		} else {
+			task.setUser(user);
+			user.getTasks().add(task);
+			taskRepository.save(task);
+			userRepository.save(user);
+			return "Task with taskId : " + taskId + ". Assigned to user with userId " + userId;
+		}
+	}
+
+	@Override
+	public String removeTaskFromUser(Integer userId, Integer taskId) throws NoRecordFoundException {
+		User user = userRepository.findById(userId)
+				.orElseThrow(() -> new NoRecordFoundException("User not found with Id : " + userId));
+		Task oldTask = taskRepository.findById(taskId)
+				.orElseThrow(() -> new NoRecordFoundException("Task not found with Id : " + taskId));
+		if (oldTask.getUser() == null) {
+			throw new NoRecordFoundException("This task does not belong to any user.");
+		} else if (oldTask.getUser().getUserId() != userId) {
+			throw new NoRecordFoundException("This task does not belong user with userId : " + userId);
+		} else {
+			oldTask.setUser(null);
+			user.getTasks().removeIf(task -> task.getTaskId() == taskId);
+			taskRepository.save(oldTask);
+			userRepository.save(user);
+			return "Task with taskId " + taskId + ". Removed from user with userId " + userId;
+		}
+	}
+
 }

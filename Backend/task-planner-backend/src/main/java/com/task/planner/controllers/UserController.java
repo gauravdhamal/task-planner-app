@@ -64,4 +64,18 @@ public class UserController {
 		return new ResponseEntity<List<TaskDTO>>(taskDTOs, HttpStatus.OK);
 	}
 
+	@PostMapping("assignTaskToUser/{userId}/{taskId}")
+	public ResponseEntity<String> assignTaskToUser(@PathVariable("userId") Integer userId,
+			@PathVariable("taskId") Integer taskId) throws NoRecordFoundException {
+		String message = userService.assignTaskToUser(userId, taskId);
+		return new ResponseEntity<String>(message, HttpStatus.OK);
+	}
+
+	@PostMapping("removeTaskFromUser/{userId}/{taskId}")
+	public ResponseEntity<String> removeTaskFromUser(@PathVariable("userId") Integer userId,
+			@PathVariable("taskId") Integer taskId) throws NoRecordFoundException {
+		String message = userService.removeTaskFromUser(userId, taskId);
+		return new ResponseEntity<String>(message, HttpStatus.OK);
+	}
+
 }
