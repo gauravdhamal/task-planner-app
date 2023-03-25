@@ -5,6 +5,9 @@ DB_PORT=6754
 DB_USERNAME=root
 DB_PASSWORD=SJXHUsS5Dw8ak6yUQ0BH
 
+Deployed link :- 
+https://task-planner-backend-production.up.railway.app
+
 
 Create User :-
 {
@@ -13,6 +16,14 @@ Create User :-
   "username": "gaurav@gmail.com",
   "password": "password",
   "role": "EMPLOYEE",
+  "gender": "MALE"
+}
+{
+  "userId": 0,
+  "name": "Aman",
+  "username": "aman@gmail.com",
+  "password": "Password@345",
+  "role": "MANAGER",
   "gender": "MALE"
 }
 
