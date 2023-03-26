@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/navbar.css" />
+    <link rel="stylesheet" href="styles/index.css" />
+    <title>User module</title>
+  </head>
+  <body>
+    <div id="navbar"></div>
+
+    <div class="forms">
+      <form id="user-form">
+        <h2>Create user</h2>
+
+        <label for="user-name">Name : </label>
+        <input type="text" id="user-name" name="user-name" required />
+
+        <label for="user-username">Username : </label>
+        <input type="text" id="user-username" name="user-username" required />
+
+        <label for="user-password">Password : </label>
+        <input type="text" name="user-password" id="user-password" required />
+
+        <label for="user-role">Role : </label>
+        <select name="user-role" id="user-role">
+          <option value="MANAGER">MANAGER</option>
+          <option value="EMPLOYEE">EMPLOYEE</option>
+        </select>
+
+        <label for="user-gender">Gender : </label>
+        <select name="user-gender" id="user-gender">
+          <option value="MALE">MALE</option>
+          <option value="FEMALE">FEMALE</option>
+        </select>
+
+        <input type="submit" id="user-submit" value="Create User" />
+      </form>
+    </div>
+  </body>
+</html>
+
+<script src="scripts/users.js" type="module"></script>

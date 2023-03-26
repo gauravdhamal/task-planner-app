@@ -4,6 +4,7 @@ let navbar = () => {
     <h4><a href="index.html">Home</a></h4>
     <h4><a href="sprints.html">Sprint</a></h4>
     <h4><a href="tasks.html">Task</a></h4>
+    <h4><a href="users.html">User</a></h4>
   </div>`;
 };
 

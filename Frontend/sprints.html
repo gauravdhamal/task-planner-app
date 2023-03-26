@@ -4,12 +4,34 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sprints data</title>
     <link rel="stylesheet" href="styles/navbar.css" />
+    <link rel="stylesheet" href="styles/index.css" />
+    <title>Sprints data</title>
   </head>
   <body>
     <div id="navbar"></div>
-    <form action=""></form>
+
+    <div class="forms">
+      <form id="sprint-form">
+        <h2>Create sprint</h2>
+
+        <label for="sprint-name">Sprint Name : </label>
+        <input type="text" id="sprint-name" name="sprint-name" required />
+
+        <label for="sprint-startdate">Start Date : </label>
+        <input
+          type="date"
+          id="sprint-startdate"
+          name="sprint-startdate"
+          required
+        />
+
+        <label for="sprint-enddate">End Date : </label>
+        <input type="date" id="sprint-enddate" name="sprint-enddate" required />
+
+        <input type="submit" id="sprint-submit" value="Create Sprint" />
+      </form>
+    </div>
   </body>
 </html>
 

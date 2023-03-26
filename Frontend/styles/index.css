@@ -1,0 +1,15 @@
+#sprint-form,
+#task-form,
+#user-form {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  justify-content: space-between;
+}
+
+.forms {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 70px;
+}
