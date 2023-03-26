@@ -3,7 +3,7 @@ import navbar from "../components/navbar.js";
 document.querySelector("#navbar").innerHTML = navbar();
 
 // https://task-planner-backend-production.up.railway.app
-const commonUrl = "http://localhost:8080";
+const commonUrl = "https://task-planner-backend-production.up.railway.app";
 
 async function getSprintData() {
   let response = await fetch(commonUrl + "/sprints/all");
@@ -13,17 +13,6 @@ async function getSprintData() {
   let data = await response.json();
   // console.log("GET getSprintData request successful:", data);
   return data;
-}
-
-async function getTasksBySprintId(sprintId) {
-  let response = await fetch(commonUrl + `/sprints/tasks/${sprintId}`);
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
-  } else {
-    let data = await response.json();
-    // console.log("GET getTasksBySprintId request successful:", data);
-    return data;
-  }
 }
 
 async function main() {
@@ -61,34 +50,52 @@ function sprintData(arrayOfSprints) {
     endDateElement.classList.add("sprint-end-date");
     endDateElement.textContent = `End Date: ${sprint.endDate}`;
 
+    const tasksElement = document.createElement("div");
+    tasksElement.classList.add("sprint-tasks");
+    sprint.tasks.forEach((task) => {
+      const taskElement = document.createElement("div");
+      taskElement.classList.add("task");
+
+      const taskIdElement = document.createElement("div");
+      taskIdElement.classList.add("task-id");
+      taskIdElement.textContent = `Task ID: ${task.taskId}`;
+
+      const typeElement = document.createElement("div");
+      typeElement.classList.add("task-type");
+      typeElement.textContent = `Type: ${task.type}`;
+
+      const descriptionElement = document.createElement("div");
+      descriptionElement.classList.add("task-description");
+      descriptionElement.textContent = `Description: ${task.description}`;
+
+      const statusElement = document.createElement("div");
+      statusElement.classList.add("task-status");
+      statusElement.textContent = `Status: ${task.status}`;
+
+      const priorityElement = document.createElement("div");
+      priorityElement.classList.add("task-priority");
+      priorityElement.textContent = `Priority: ${task.priority}`;
+
+      const commentElement = document.createElement("div");
+      commentElement.classList.add("task-comment");
+      commentElement.textContent = `Comment: ${task.comment}`;
+
+      taskElement.appendChild(taskIdElement);
+      taskElement.appendChild(typeElement);
+      taskElement.appendChild(descriptionElement);
+      taskElement.appendChild(statusElement);
+      taskElement.appendChild(priorityElement);
+      taskElement.appendChild(commentElement);
+
+      tasksElement.appendChild(taskElement);
+    });
+
     sprintElement.appendChild(sprintIdElement);
     sprintElement.appendChild(nameElement);
     sprintElement.appendChild(startDateElement);
     sprintElement.appendChild(endDateElement);
+    sprintElement.appendChild(tasksElement);
 
     sprintList.appendChild(sprintElement);
   });
-
-  arrayOfSprints.forEach(({ sprintId, name, startDate, endDate }) => {
-    main1(sprintId);
-  });
-}
-
-async function main1(sprintId) {
-  try {
-    let arraysOfTaskPerSprint = await getTasksBySprintId(sprintId);
-    // console.log("arraysOfTaskPerSprint:", arraysOfTaskPerSprint);
-    arraysOfTaskPerSprint.forEach(
-      ({ taskId, type, description, status, priority, comment }) => {
-        console.log(`Task ID: ${taskId}`);
-        console.log(`Type: ${type}`);
-        console.log(`Description: ${description}`);
-        console.log(`Status: ${status}`);
-        console.log(`Priority: ${priority}`);
-        console.log(`Comment: ${comment}`);
-      }
-    );
-  } catch (error) {
-    console.error("Error occurred during GET request:", error);
-  }
 }

@@ -13,3 +13,53 @@
   justify-content: space-evenly;
   padding: 70px;
 }
+
+/* Styling for the sprint list container */
+.sprint {
+  display: flex;
+  flex-direction: column;
+}
+
+.sprint-tasks {
+  display: flex;
+  flex-direction: column;
+}
+
+.task {
+  display: flex;
+  flex-direction: column;
+}
+
+.sprint {
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+}
+
+.sprint-tasks {
+  padding: 10px;
+}
+
+.task {
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.task:hover {
+  background-color: #f9f9f9;
+  box-shadow: 0px 0px 5px #aaa;
+}
+
+.sprint:hover {
+  background-color: #f9f9f9;
+  box-shadow: 0px 0px 5px #aaa;
+}
+
+.sprint {
+  background-color: #fff;
+}
+
+.task {
+  background-color: #f1f1f1;
+}

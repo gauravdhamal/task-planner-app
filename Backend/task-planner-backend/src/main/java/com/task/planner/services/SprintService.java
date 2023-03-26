@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.task.planner.dtos.SprintDTO;
 import com.task.planner.dtos.TaskDTO;
+import com.task.planner.entities.Sprint;
 import com.task.planner.exceptions.NoRecordFoundException;
 
 public interface SprintService {
@@ -54,7 +55,7 @@ public interface SprintService {
 	 * @throws NoRecordFoundException : It will throw NoRecordFoundException if list
 	 *                                is empty.
 	 */
-	public List<SprintDTO> getAllSprints() throws NoRecordFoundException;
+	public List<Sprint> getAllSprints() throws NoRecordFoundException;
 
 	/**
 	 * 

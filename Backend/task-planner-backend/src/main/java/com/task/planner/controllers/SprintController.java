@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.task.planner.dtos.SprintDTO;
 import com.task.planner.dtos.TaskDTO;
+import com.task.planner.entities.Sprint;
 import com.task.planner.exceptions.NoRecordFoundException;
 import com.task.planner.services.SprintService;
 
@@ -58,9 +59,9 @@ public class SprintController {
 	}
 
 	@GetMapping("/all")
-	public ResponseEntity<List<SprintDTO>> getAllSprints() throws NoRecordFoundException {
-		List<SprintDTO> sprints = sprintService.getAllSprints();
-		return new ResponseEntity<List<SprintDTO>>(sprints, HttpStatus.OK);
+	public ResponseEntity<List<Sprint>> getAllSprints() throws NoRecordFoundException {
+		List<Sprint> sprints = sprintService.getAllSprints();
+		return new ResponseEntity<List<Sprint>>(sprints, HttpStatus.OK);
 	}
 
 	@PostMapping("/assignTaskToSprint/{taskId}/{sprintId}")

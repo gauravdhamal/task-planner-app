@@ -69,7 +69,7 @@ public class SprintServiceImpl implements SprintService {
 	}
 
 	@Override
-	public List<SprintDTO> getAllSprints() throws NoRecordFoundException {
+	public List<Sprint> getAllSprints() throws NoRecordFoundException {
 		List<Sprint> sprints = sprintRepository.findAll();
 		if (sprints.isEmpty()) {
 			throw new NoRecordFoundException("No any sprint found in database.");
@@ -78,7 +78,8 @@ public class SprintServiceImpl implements SprintService {
 			for (Sprint sprint : sprints) {
 				sprintDTOs.add(modelMapper.map(sprint, SprintDTO.class));
 			}
-			return sprintDTOs;
+//			return sprintDTOs;
+			return sprints;
 		}
 	}
 
