@@ -7,14 +7,19 @@
     <link rel="stylesheet" href="styles/navbar.css" />
     <link rel="stylesheet" href="styles/index.css" />
     <title>Sprints data</title>
+    <style>
+      #sprintForm,
+      #sprintFormButtonClose {
+        display: none;
+      }
+    </style>
   </head>
   <body>
     <div id="navbar"></div>
 
     <div class="forms">
-      <form id="sprint-form">
-        <h2>Create sprint</h2>
-
+      <button id="sprintFormButtonOpen">Create Sprint</button>
+      <form id="sprintForm">
         <label for="sprint-name">Sprint Name : </label>
         <input type="text" id="sprint-name" name="sprint-name" required />
 
@@ -29,8 +34,9 @@
         <label for="sprint-enddate">End Date : </label>
         <input type="date" id="sprint-enddate" name="sprint-enddate" required />
 
-        <input type="submit" id="sprint-submit" value="Create Sprint" />
+        <input type="submit" id="sprint-submit" value="POST" />
       </form>
+      <button id="sprintFormButtonClose">Close Form</button>
     </div>
   </body>
 </html>

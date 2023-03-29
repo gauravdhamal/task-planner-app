@@ -3,7 +3,7 @@ import navbar from "../components/navbar.js";
 document.querySelector("#navbar").innerHTML = navbar();
 
 // https://task-planner-backend-production.up.railway.app
-const commonUrl = "https://task-planner-backend-production.up.railway.app";
+const commonUrl = "http://localhost:8080";
 
 async function getSprintData() {
   let response = await fetch(commonUrl + "/sprints/all");
@@ -18,7 +18,7 @@ async function getSprintData() {
 async function main() {
   try {
     let arrayOfSprints = await getSprintData();
-    sprintData(arrayOfSprints);
+    appendSprintData(arrayOfSprints);
     // console.log("arrayOfSprints: ", arrayOfSprints);
   } catch (error) {
     console.error("Error occurred during GET request:", error);
@@ -27,9 +27,9 @@ async function main() {
 
 main();
 
-function sprintData(arrayOfSprints) {
+function appendSprintData(arrayOfSprints) {
   const sprintList = document.getElementById("sprintList");
-
+  sprintList.innerHTML = "";
   arrayOfSprints.forEach((sprint) => {
     const sprintElement = document.createElement("div");
     sprintElement.classList.add("sprint");
@@ -80,12 +80,20 @@ function sprintData(arrayOfSprints) {
       commentElement.classList.add("task-comment");
       commentElement.textContent = `Comment: ${task.comment}`;
 
+      const deleteTaskButton = document.createElement("button");
+      deleteTaskButton.textContent = "Remove Task.";
+      deleteTaskButton.addEventListener("click", () => {
+        // console.log("Delete Button clicked.!");
+        deleteTaskFromSprint(task.taskId, sprint.sprintId);
+      });
+
       taskElement.appendChild(taskIdElement);
       taskElement.appendChild(typeElement);
       taskElement.appendChild(descriptionElement);
       taskElement.appendChild(statusElement);
       taskElement.appendChild(priorityElement);
       taskElement.appendChild(commentElement);
+      taskElement.appendChild(deleteTaskButton);
 
       tasksElement.appendChild(taskElement);
     });
@@ -98,4 +106,23 @@ function sprintData(arrayOfSprints) {
 
     sprintList.appendChild(sprintElement);
   });
+}
+
+function deleteTaskFromSprint(taskId, sprintId) {
+  fetch(commonUrl + `/sprints/removeTaskFromSprint/${taskId}/${sprintId}`, {
+    method: "POST",
+  })
+    .then((response) => {
+      console.log("response:", response);
+      console.log("response.status:", response.status);
+      if (response.status == 200) {
+        main();
+        window.alert(`Task ${taskId} removed from Sprint : ${sprintId}`);
+      } else if (response.status == 400) {
+        window.alert(`Something went wrong...!!!`);
+      }
+    })
+    .catch((error) => {
+      console.error("Error deleting task from sprint:", error);
+    });
 }
