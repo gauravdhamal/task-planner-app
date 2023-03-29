@@ -128,4 +128,29 @@ public class TaskServiceImpl implements TaskService {
 		return prevPriority + " changed to " + priority;
 	}
 
+	@Override
+	public List<Task> getAllTasksWithoutSprint() throws NoRecordFoundException {
+		List<Task> tasks = taskRepository.findBySprint();
+		if (tasks.isEmpty()) {
+			throw new NoRecordFoundException("No any task found.");
+		} else {
+			return tasks;
+		}
+	}
+
+	@Override
+	public List<Task> getAllTasksWithoutSprintSortByPriority(Priority priority) throws NoRecordFoundException {
+//		System.out.println("priority == Priority.HIGH " + priority);
+//		Sort sort = Sort.by(priority == Priority.HIGH ? Direction.ASC : Direction.DESC, "priority");
+//		List<Task> tasks = taskRepository.findAll(sort);
+		List<Task> tasks = new ArrayList<>();
+		if (priority.equals(Priority.HIGH)) {
+			tasks = taskRepository.findBySprintOrderByPriorityASC();
+		} else {
+			tasks = taskRepository.findBySprintOrderByPriorityDESC();
+		}
+		if (tasks.isEmpty())
+			throw new NoRecordFoundException("No any task found.");
+		return tasks;
+	}
 }

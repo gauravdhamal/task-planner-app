@@ -13,11 +13,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Task {
@@ -40,19 +42,25 @@ public class Task {
 	private String comment;
 
 	/**
-	 * Many tasks can belongs to one user.
-	 * So relation is Many to One which is mapped by single user entity.
+	 * Many tasks can belongs to one user. So relation is Many to One which is
+	 * mapped by single user entity.
 	 */
 	@JsonIgnore
 	@ManyToOne
 	private User user;
 
 	/**
-	 * Many tasks can be added to one Sprint.
-	 * So relation is Many to One which is mapped by single Sprint entity. 
+	 * Many tasks can be added to one Sprint. So relation is Many to One which is
+	 * mapped by single Sprint entity.
 	 */
 	@JsonIgnore
 	@ManyToOne
 	private Sprint sprint;
+
+	@Override
+	public String toString() {
+		return "Task [taskId=" + taskId + ", type=" + type + ", description=" + description + ", status=" + status
+				+ ", priority=" + priority + ", comment=" + comment + "]";
+	}
 
 }

@@ -25,7 +25,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/sprints")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = { "*", "http://127.0.0.1:5500" })
 public class SprintController {
 
 	@Autowired

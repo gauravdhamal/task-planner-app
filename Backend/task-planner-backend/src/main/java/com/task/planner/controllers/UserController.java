@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.task.planner.dtos.TaskDTO;
 import com.task.planner.dtos.UserDTO;
+import com.task.planner.entities.User;
+import com.task.planner.enums.Gender;
 import com.task.planner.exceptions.NoRecordFoundException;
 import com.task.planner.services.UserService;
 
@@ -59,6 +61,13 @@ public class UserController {
 	public ResponseEntity<List<UserDTO>> getAllUsers() throws NoRecordFoundException {
 		List<UserDTO> dtos = userService.getAllUsers();
 		return new ResponseEntity<List<UserDTO>>(dtos, HttpStatus.OK);
+	}
+
+	@GetMapping("/all/{gender}")
+	public ResponseEntity<List<User>> getAllUsersSortByGender(@PathVariable("gender") Gender gender)
+			throws NoRecordFoundException {
+		List<User> users = userService.getAllUsersSortByGender(gender);
+		return new ResponseEntity<List<User>>(users, HttpStatus.OK);
 	}
 
 	@GetMapping("/tasks/{userId}")

@@ -5,6 +5,7 @@ import java.util.List;
 import com.task.planner.dtos.SprintDTO;
 import com.task.planner.dtos.TaskDTO;
 import com.task.planner.dtos.UserDTO;
+import com.task.planner.entities.Task;
 import com.task.planner.enums.Priority;
 import com.task.planner.enums.Status;
 import com.task.planner.exceptions.NoRecordFoundException;
@@ -97,5 +98,22 @@ public interface TaskService {
 	 *                                NoRecordFoundException will be thrown.
 	 */
 	public String changePriorityOfTask(Integer taskId, Priority priority) throws NoRecordFoundException;
+
+	/**
+	 * 
+	 * @return : List<Task> All tasks which does not assigned to any Sprint.
+	 * @throws NoRecordFoundException : If no any task found then will throw
+	 *                                NoRecordFoundException.
+	 */
+	public List<Task> getAllTasksWithoutSprint() throws NoRecordFoundException;
+
+	/**
+	 * 
+	 * @param priority : To search as per provided priority.
+	 * @return : List<Task> object with sorting order.
+	 * @throws NoRecordFoundException : If no any task found the exception will be
+	 *                                thrown at runtime.
+	 */
+	public List<Task> getAllTasksWithoutSprintSortByPriority(Priority priority) throws NoRecordFoundException;
 
 }

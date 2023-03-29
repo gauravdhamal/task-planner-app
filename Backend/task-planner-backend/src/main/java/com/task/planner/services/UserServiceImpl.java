@@ -5,12 +5,15 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.task.planner.dtos.TaskDTO;
 import com.task.planner.dtos.UserDTO;
 import com.task.planner.entities.Task;
 import com.task.planner.entities.User;
+import com.task.planner.enums.Gender;
 import com.task.planner.exceptions.NoRecordFoundException;
 import com.task.planner.repositories.TaskRepository;
 import com.task.planner.repositories.UserRepository;
@@ -84,6 +87,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public List<User> getAllUsersSortByGender(Gender gender) throws NoRecordFoundException {
+		Sort sort = Sort.by(gender == Gender.MALE ? Direction.DESC : Direction.ASC, "gender");
+		List<User> users = userRepository.findAll(sort);
+		if (users.isEmpty())
+			throw new NoRecordFoundException("No any user found.");
+		return users;
+	}
+
+	@Override
 	public List<TaskDTO> getAllTaskByUserId(Integer userId) throws NoRecordFoundException {
 		User user = userRepository.findById(userId)
 				.orElseThrow(() -> new NoRecordFoundException("User not found with Id : " + userId));
@@ -134,6 +146,12 @@ public class UserServiceImpl implements UserService {
 			userRepository.save(user);
 			return "Task with taskId " + taskId + ". Removed from user with userId " + userId;
 		}
+	}
+
+	@Override
+	public List<User> getAllUsersSortByName(String value) throws NoRecordFoundException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

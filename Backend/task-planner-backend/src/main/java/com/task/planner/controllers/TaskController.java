@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.task.planner.dtos.SprintDTO;
 import com.task.planner.dtos.TaskDTO;
 import com.task.planner.dtos.UserDTO;
+import com.task.planner.entities.Task;
 import com.task.planner.enums.Priority;
 import com.task.planner.enums.Status;
 import com.task.planner.exceptions.NoRecordFoundException;
@@ -91,6 +92,19 @@ public class TaskController {
 			@PathVariable("priority") Priority priority) throws NoRecordFoundException {
 		String message = taskService.changePriorityOfTask(taskId, priority);
 		return new ResponseEntity<String>(message, HttpStatus.OK);
+	}
+
+	@GetMapping("/withoutSprint")
+	public ResponseEntity<List<Task>> getAllTasksWithoutSprint() throws NoRecordFoundException {
+		List<Task> tasks = taskService.getAllTasksWithoutSprint();
+		return new ResponseEntity<List<Task>>(tasks, HttpStatus.OK);
+	}
+
+	@GetMapping("/withoutSprint/{priority}")
+	public ResponseEntity<List<Task>> getAllTasksWithoutSprintSortByPriority(
+			@PathVariable("priority") Priority priority) throws NoRecordFoundException {
+		List<Task> tasks = taskService.getAllTasksWithoutSprintSortByPriority(priority);
+		return new ResponseEntity<List<Task>>(tasks, HttpStatus.OK);
 	}
 
 }

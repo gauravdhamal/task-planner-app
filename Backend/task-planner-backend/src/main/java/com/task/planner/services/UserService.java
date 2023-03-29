@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.task.planner.dtos.TaskDTO;
 import com.task.planner.dtos.UserDTO;
+import com.task.planner.entities.User;
+import com.task.planner.enums.Gender;
 import com.task.planner.exceptions.NoRecordFoundException;
 
 public interface UserService {
@@ -50,6 +52,22 @@ public interface UserService {
 	 *                                an NoRecordFoundException.
 	 */
 	public List<UserDTO> getAllUsers() throws NoRecordFoundException;
+
+	/**
+	 * 
+	 * @return : List<User> contains sorted list of users according to Gender.
+	 * @throws NoRecordFoundException : If List of user is empty then it will throw
+	 *                                an NoRecordFoundException.
+	 */
+	public List<User> getAllUsersSortByGender(Gender gender) throws NoRecordFoundException;
+
+	/**
+	 * 
+	 * @return : List<User> contains sorted list of users according to Name.
+	 * @throws NoRecordFoundException : If List of user is empty then it will throw
+	 *                                an NoRecordFoundException.
+	 */
+	public List<User> getAllUsersSortByName(String value) throws NoRecordFoundException;
 
 	/**
 	 * 
