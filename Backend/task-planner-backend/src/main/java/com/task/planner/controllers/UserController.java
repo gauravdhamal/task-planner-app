@@ -70,6 +70,13 @@ public class UserController {
 		return new ResponseEntity<List<User>>(users, HttpStatus.OK);
 	}
 
+	@GetMapping("/all/sortByName/{value}")
+	public ResponseEntity<List<User>> getAllUsersSortByName(@PathVariable("value") String value)
+			throws NoRecordFoundException {
+		List<User> users = userService.getAllUsersSortByName(value);
+		return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+	}
+
 	@GetMapping("/tasks/{userId}")
 	public ResponseEntity<List<TaskDTO>> getAllTaskByUserId(@PathVariable("userId") Integer userId)
 			throws NoRecordFoundException {

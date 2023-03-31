@@ -150,8 +150,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<User> getAllUsersSortByName(String value) throws NoRecordFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		Sort sort = Sort.by(value.equals("ASC") ? Direction.ASC : Direction.DESC, "name");
+		List<User> users = userRepository.findAll(sort);
+		if (users.isEmpty())
+			throw new NoRecordFoundException("No any user found in database.");
+		return users;
 	}
 
 }
