@@ -150,6 +150,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<User> getAllUsersSortByName(String value) throws NoRecordFoundException {
+		value = value.toUpperCase();
 		Sort sort = Sort.by(value.equals("ASC") ? Direction.ASC : Direction.DESC, "name");
 		List<User> users = userRepository.findAll(sort);
 		if (users.isEmpty())
