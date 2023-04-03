@@ -46,9 +46,22 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        border: 1px solid red;
+        border: 0.4px solid gray;
         width: 800px;
-        height: 500px;
+        height: auto;
+        display: none;
+        box-sizing: border-box;
+        padding: 20px 40px;
+        border-radius: 50px;
+        /* border: 1px solid red; */
+        background-color: wheat;
+        overflow: auto;
+        max-height: 400px;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      }
+
+      /* Hide scrollbar */
+      ::-webkit-scrollbar {
         display: none;
       }
     </style>
@@ -154,7 +167,23 @@
       <tbody></tbody>
     </table>
 
-    <div id="viewTasks"></div>
+    <div id="viewTasks">
+      <div class="formsDivsNavbar">
+        <h1>All tasks</h1>
+        <button id="closeTasks" class="button">Close</button>
+      </div>
+      <table>
+        <thead>
+          <th>Id</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Status</th>
+          <th>Priority</th>
+          <th>Comment</th>
+        </thead>
+        <tbody id="viewTasksTableBody"></tbody>
+      </table>
+    </div>
   </body>
 </html>
 
