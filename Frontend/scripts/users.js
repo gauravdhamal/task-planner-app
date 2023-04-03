@@ -106,6 +106,16 @@ async function getAllUsersSortByNames(value) {
   }
 }
 
+async function getAllTasksByUserId(userId) {
+  let response = await fetch(commonUrl + `/users/tasks/${userId}`);
+  if (response.status == 200) {
+    let data = await response.json();
+    console.log("data:", data);
+  } else {
+    window.alert(`No any tasks found for user ${userId}`);
+  }
+}
+
 async function main() {
   let arrayOfUsers = await getAllUsers();
   appendUsers(arrayOfUsers);
@@ -123,18 +133,29 @@ let appendUsers = (arrayOfUsers) => {
     const tdUsername = document.createElement("td");
     const tdRole = document.createElement("td");
     const tdGender = document.createElement("td");
+    const tdTasks = document.createElement("td");
+    const taskButton = document.createElement("button");
+    taskButton.textContent = "Open";
+    taskButton.setAttribute("class", "inputButton");
+    taskButton.style.backgroundColor = "skyblue";
+    taskButton.addEventListener("click", () => {
+      console.log("View tasks button clicked." + item.userId);
+      getAllTasksByUserId(item.userId);
+    });
 
     tdUserId.textContent = item.userId;
     tdName.textContent = item.name;
     tdUsername.textContent = item.username;
     tdRole.textContent = item.role;
     tdGender.textContent = item.gender;
+    tdTasks.appendChild(taskButton);
 
     tr.appendChild(tdUserId);
     tr.appendChild(tdName);
     tr.appendChild(tdUsername);
     tr.appendChild(tdRole);
     tr.appendChild(tdGender);
+    tr.appendChild(tdTasks);
 
     userTableBody.appendChild(tr);
   });
@@ -156,7 +177,6 @@ let selectName = document.getElementById("selectName");
 selectName.addEventListener("change", () => {
   let nameValue = selectName.value;
   if (nameValue == "ASC" || nameValue == "DESC") {
-    getAllUsersSortByNames(nameValue);
   } else {
     main();
   }

@@ -39,6 +39,18 @@
       tr:hover {
         background-color: #f5f5f5;
       }
+
+      /* Display all tasks CSS. */
+      #viewTasks {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 1px solid red;
+        width: 800px;
+        height: 500px;
+        display: none;
+      }
     </style>
   </head>
   <body>
@@ -136,10 +148,13 @@
               <option value="FEMALE">Female</option>
             </select>
           </th>
+          <th>View Tasks</th>
         </tr>
       </thead>
       <tbody></tbody>
     </table>
+
+    <div id="viewTasks"></div>
   </body>
 </html>
 
