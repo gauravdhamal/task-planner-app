@@ -96,6 +96,16 @@ async function getAllUserByGender(gender) {
   }
 }
 
+async function getAllUsersSortByNames(value) {
+  let response = await fetch(commonUrl + `/users/all/sortByName/${value}`);
+  if (response.status == 200) {
+    let data = await response.json();
+    appendUsers(data);
+  } else {
+    window.alert(`No any users found to sort.`);
+  }
+}
+
 async function main() {
   let arrayOfUsers = await getAllUsers();
   appendUsers(arrayOfUsers);
@@ -136,6 +146,17 @@ selectGender.addEventListener("change", () => {
   let genderValue = selectGender.value;
   if (genderValue == "MALE" || genderValue == "FEMALE") {
     getAllUserByGender(genderValue);
+  } else {
+    main();
+  }
+});
+
+let selectName = document.getElementById("selectName");
+
+selectName.addEventListener("change", () => {
+  let nameValue = selectName.value;
+  if (nameValue == "ASC" || nameValue == "DESC") {
+    getAllUsersSortByNames(nameValue);
   } else {
     main();
   }
