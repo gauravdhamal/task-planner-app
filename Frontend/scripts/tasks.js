@@ -152,6 +152,7 @@ function append(arrayOfTasks) {
       } else {
         // console.log("Button clicked!");
         addTaskToSprint(task.taskId, sprintCellInfo);
+        sprintCell.value = "";
       }
     });
 
@@ -175,8 +176,10 @@ function append(arrayOfTasks) {
         window.alert(`Enter UserId to continue...`);
       } else if (userDetailsCell.innerText != "Not Assigned") {
         window.alert(`User already assigned.`);
+        userCell.value = "";
       } else {
         assignTaskToUser(task.taskId, userCellInfo);
+        userCell.value = "";
       }
     });
     tableBody.appendChild(row);

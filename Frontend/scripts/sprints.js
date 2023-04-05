@@ -25,6 +25,13 @@ sprintFormButtonClose.addEventListener("click", () => {
   postFormDiv.style.display = "none";
 });
 
+// Tasks close button code.
+let closeTasks = document.getElementById("closeTasks");
+let viewTasks = document.getElementById("viewTasks");
+closeTasks.addEventListener("click", () => {
+  viewTasks.style.display = "none";
+});
+
 // To get the sprint object after creating sprint.
 const createSprint = async (event) => {
   event.preventDefault();
@@ -56,8 +63,13 @@ const createSprint = async (event) => {
   fetch(commonUrl + "/sprints/create", options)
     .then((response) => response.json())
     .then((sprintObject) => {
-      console.log("sprintObject:", sprintObject);
-      window.alert("Sprint created note sprintId : " + sprintObject.sprintId);
+      if (sprintObject.description == "Validation error") {
+        window.alert(sprintObject.details);
+      } else {
+        window.alert("Sprint created note sprintId : " + sprintObject.sprintId);
+        sprintFormPost.reset();
+        main();
+      }
     })
     .catch((error) => console.error(error));
 };
@@ -69,6 +81,16 @@ async function getAllSprints() {
   if (response.status == 200) {
     let data = await response.json();
     return data;
+  }
+}
+
+async function getAllTasksBySprintId(sprintId) {
+  let response = await fetch(commonUrl + `/sprints/tasks/${sprintId}`);
+  if (response.status == 200) {
+    let data = await response.json();
+    return data;
+  } else {
+    window.alert(`No any tasks found for sprint ${sprintId}`);
   }
 }
 
@@ -88,17 +110,66 @@ let appendSprints = (arrayOfSprints) => {
     const tdName = document.createElement("td");
     const tdStartDate = document.createElement("td");
     const tdEndDate = document.createElement("td");
+    const tdTasks = document.createElement("td");
+    const taskButton = document.createElement("button");
+    taskButton.textContent = "Open";
+    taskButton.setAttribute("class", "inputButton");
+    taskButton.style.backgroundColor = "skyblue";
+    taskButton.addEventListener("click", () => {
+      getAllTasksBySprintId(sprint.sprintId).then((tasks) => {
+        if (tasks != undefined) {
+          viewTasks.style.display = "block";
+          appendTasksPerSprint(tasks);
+        }
+      });
+    });
 
     tdSprintId.textContent = sprint.sprintId;
     tdName.textContent = sprint.name;
     tdStartDate.textContent = sprint.startDate;
     tdEndDate.textContent = sprint.endDate;
+    tdTasks.appendChild(taskButton);
 
     tr.appendChild(tdSprintId);
     tr.appendChild(tdName);
     tr.appendChild(tdStartDate);
     tr.appendChild(tdEndDate);
+    tr.appendChild(tdTasks);
 
     sprintTableBody.appendChild(tr);
+  });
+};
+
+let appendTasksPerSprint = (tasks) => {
+  const tasksTableBody = document.getElementById("viewTasksTableBody");
+  tasksTableBody.innerHTML = "";
+  tasks.forEach((task) => {
+    const tr = document.createElement("tr");
+
+    const taskIdTd = document.createElement("td");
+    taskIdTd.textContent = task.taskId;
+    tr.appendChild(taskIdTd);
+
+    const typeTd = document.createElement("td");
+    typeTd.textContent = task.type;
+    tr.appendChild(typeTd);
+
+    const descriptionTd = document.createElement("td");
+    descriptionTd.textContent = task.description;
+    tr.appendChild(descriptionTd);
+
+    const statusTd = document.createElement("td");
+    statusTd.textContent = task.status;
+    tr.appendChild(statusTd);
+
+    const priorityTd = document.createElement("td");
+    priorityTd.textContent = task.priority;
+    tr.appendChild(priorityTd);
+
+    const commentTd = document.createElement("td");
+    commentTd.textContent = task.comment;
+    tr.appendChild(commentTd);
+
+    tasksTableBody.appendChild(tr);
   });
 };
