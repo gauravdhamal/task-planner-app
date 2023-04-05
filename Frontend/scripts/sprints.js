@@ -65,8 +65,19 @@ const createSprint = async (event) => {
 sprintFormPost.addEventListener("submit", createSprint);
 
 async function getAllSprints() {
-  let data = await fetch(commonUrl + `/sprints/all`);
+  let response = await fetch(commonUrl + `/sprints/all`);
+  if (response.status == 200) {
+    let data = await response.json();
+    return data;
+  }
 }
+
+async function main() {
+  let arrayOfSprints = await getAllSprints();
+  appendSprints(arrayOfSprints);
+}
+
+main();
 
 let appendSprints = (arrayOfSprints) => {
   const sprintTableBody = document.querySelector("#sprintTable tbody");

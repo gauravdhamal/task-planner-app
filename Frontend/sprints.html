@@ -10,7 +10,8 @@
     <style>
       table {
         border-collapse: collapse;
-        width: 100%;
+        width: 60%;
+        margin: auto;
       }
       th,
       td {
@@ -21,6 +22,11 @@
       th {
         background-color: #f2f2f2;
         color: #333;
+      }
+      #getAllSprintsh1 {
+        text-align: center;
+        padding: 10px;
+        margin: 10px;
       }
     </style>
   </head>
@@ -65,17 +71,22 @@
       </form>
     </div>
 
-    <table id="sprintTable">
-      <thead>
-        <tr>
-          <th>Sprint ID</th>
-          <th>Name</th>
-          <th>Start Date</th>
-          <th>End Date</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+    <div id="getAllSprints">
+      <h1 id="getAllSprintsh1">Sprint List</h1>
+      <div>
+        <table id="sprintTable">
+          <thead>
+            <tr>
+              <th>Sprint ID</th>
+              <th>Name</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
   </body>
 </html>
 
