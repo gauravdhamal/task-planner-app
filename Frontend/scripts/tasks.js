@@ -88,6 +88,14 @@ async function main() {
 
 main();
 
+let editTaskDynamic = document.getElementById("editTaskDynamic");
+let editTaskDynamicButtonClose = document.getElementById(
+  "editTaskDynamicButtonClose"
+);
+editTaskDynamicButtonClose.addEventListener("click", () => {
+  editTaskDynamic.style.display = "none";
+});
+
 function append(arrayOfTasks) {
   let tableBody = document.getElementById("task-list");
   tableBody.innerHTML = "";
@@ -186,6 +194,11 @@ function append(arrayOfTasks) {
     const editButton = document.createElement("button");
     editButton.textContent = "Edit";
     editButton.setAttribute("class", "editButton");
+    editButton.addEventListener("click", () => {
+      let taskId = idCell.textContent;
+      editTaskDynamic.style.display = "block";
+    });
+
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "Delete";
     deleteButton.setAttribute("class", "deleteButton");
