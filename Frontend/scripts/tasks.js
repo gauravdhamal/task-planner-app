@@ -2,9 +2,8 @@ import navbar from "../components/navbar.js";
 
 document.querySelector("#navbar").innerHTML = navbar();
 
-// https://task-planner-backend-production.up.railway.app
-// http://localhost:8080
 const commonUrl = "http://localhost:8080";
+// const commonUrl = "https://task-planner-backend-production.up.railway.app";
 
 let taskFormButtonOpen = document.getElementById("taskFormButtonOpen");
 let taskFormButtonClose = document.getElementById("taskFormButtonClose");
@@ -182,6 +181,17 @@ function append(arrayOfTasks) {
         userCell.value = "";
       }
     });
+
+    const actionCell = document.createElement("td");
+    const editButton = document.createElement("button");
+    editButton.textContent = "Edit";
+    editButton.setAttribute("class", "editButton");
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.setAttribute("class", "deleteButton");
+    actionCell.append(editButton, " / ", deleteButton);
+    row.appendChild(actionCell);
+
     tableBody.appendChild(row);
   });
 }
