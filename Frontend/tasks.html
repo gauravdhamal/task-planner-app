@@ -193,23 +193,18 @@
     <div class="forms" id="editTaskDynamic">
       <form id="editTaskDynamicForm">
         <div class="formsDivsNavbar">
-          <h1>Create Task</h1>
+          <h1>Update Task</h1>
           <button id="editTaskDynamicButtonClose" class="button">X</button>
         </div>
         <div class="formsDivs">
           <label for="oldTaskType">Old Type : </label>
-          <p class="editTaskDynamicPara">Old type</p>
-        </div>
-        <div class="formsDivs">
-          <label for="newTaskType">Enter New Type : </label>
-          <select name="newTaskType" id="newTaskType" required>
-            <option value="">Enter Type</option>
-            <option value="BUG">BUG</option>
-            <option value="FEATURE">FEATURE</option>
-            <option value="STORY">STORY</option>
-          </select>
+          <p style="border: none; font-size: 15px" id="oldTaskType"></p>
         </div>
 
+        <div class="formsDivs">
+          <label for="oldTaskDescription">Old Description : </label>
+          <p style="border: none; font-size: 15px" id="oldTaskDescription"></p>
+        </div>
         <div class="formsDivs">
           <label for="newTaskDescription">New Description : </label>
           <input
@@ -222,6 +217,10 @@
         </div>
 
         <div class="formsDivs">
+          <label for="oldTaskStatus">Old Status : </label>
+          <p style="border: none; font-size: 15px" id="oldTaskStatus"></p>
+        </div>
+        <div class="formsDivs">
           <label for="newTaskStatus">New Status : </label>
           <select name="newTaskStatus" id="newTaskStatus" required>
             <option value="">Enter Status</option>
@@ -232,6 +231,10 @@
         </div>
 
         <div class="formsDivs">
+          <label for="oldTaskPriority">Old Priority : </label>
+          <p style="border: none; font-size: 15px" id="oldTaskPriority"></p>
+        </div>
+        <div class="formsDivs">
           <label for="newTaskPriority">New Priority : </label>
           <select name="newTaskPriority" id="newTaskPriority" required>
             <option value="">Enter Priority</option>
@@ -240,6 +243,10 @@
           </select>
         </div>
 
+        <div class="formsDivs">
+          <label for="oldTaskComment">Old Comment : </label>
+          <p style="border: none; font-size: 15px" id="oldTaskComment"></p>
+        </div>
         <div class="formsDivs">
           <label for="newTaskComment">New Comment : </label>
           <input
@@ -254,7 +261,7 @@
         <input
           type="submit"
           class="formsButton"
-          value="POST"
+          value="Update"
           style="margin: auto; display: block"
         />
       </form>
