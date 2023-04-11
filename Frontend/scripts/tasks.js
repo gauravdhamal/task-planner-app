@@ -191,6 +191,22 @@ function append(arrayOfTasks) {
     deleteButton.setAttribute("class", "deleteButton");
     actionCell.append(editButton, " / ", deleteButton);
     row.appendChild(actionCell);
+    deleteButton.addEventListener("click", () => {
+      let taskId = idCell.textContent;
+      deleteTaskById(taskId).then((message) => {
+        const confirmed = confirm(
+          `Are you sure to want to delete task ${taskId}`
+        );
+        if (confirmed) {
+          if (message != undefined) {
+            window.alert(message);
+            main();
+          } else {
+            window.alert(message.details);
+          }
+        }
+      });
+    });
 
     tableBody.appendChild(row);
   });
@@ -274,6 +290,21 @@ async function getAllTasksWithoutSprintSortByPriority(priority) {
     append(data);
   } else if (!response.ok) {
     throw new Error("Network response was not ok" + response.status);
+  }
+}
+
+async function deleteTaskById(taskId) {
+  let response = await fetch(commonUrl + `/tasks/delete/${taskId}`, {
+    method: "DELETE",
+  });
+  if (response.status == 202) {
+    let message = await response.text();
+    // console.log("message:", message);
+    return message;
+  } else {
+    let data = await response.json();
+    // console.log("data:", data);
+    return data;
   }
 }
 
