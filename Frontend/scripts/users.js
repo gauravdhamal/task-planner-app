@@ -2,8 +2,8 @@ import navbar from "../components/navbar.js";
 
 document.querySelector("#navbar").innerHTML = navbar();
 
-// const commonUrl = "http://localhost:8080";
-const commonUrl = "https://task-planner-backend-production.up.railway.app";
+const commonUrl = "http://localhost:8080";
+// const commonUrl = "https://task-planner-backend-production.up.railway.app";
 
 let userFormButtonOpen = document.getElementById("userFormButtonOpen");
 let userFormButtonClose = document.getElementById("userFormButtonClose");
@@ -153,6 +153,27 @@ let appendUsers = (arrayOfUsers) => {
         }
       });
     });
+    const actionCell = document.createElement("td");
+    const editButton = document.createElement("button");
+    editButton.textContent = "Edit";
+    editButton.setAttribute("class", "editButton");
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.setAttribute("class", "deleteButton");
+    actionCell.append(editButton, " / ", deleteButton);
+    deleteButton.addEventListener("click", () => {
+      let userId = tdUserId.textContent;
+      const confirmed = confirm(`Are you sure to delete user ${userId}`);
+      if (confirmed) {
+        deleteUserById(userId).then((message) => {
+          console.log("message:", message);
+          if (message != undefined) {
+            window.alert(message);
+          }
+          main();
+        });
+      }
+    });
 
     tdUserId.textContent = item.userId;
     tdName.textContent = item.name;
@@ -167,6 +188,7 @@ let appendUsers = (arrayOfUsers) => {
     tr.appendChild(tdRole);
     tr.appendChild(tdGender);
     tr.appendChild(tdTasks);
+    tr.appendChild(actionCell);
 
     userTableBody.appendChild(tr);
   });
@@ -227,3 +249,16 @@ selectName.addEventListener("change", () => {
     main();
   }
 });
+
+async function deleteUserById(userId) {
+  let response = await fetch(commonUrl + `/users/delete/${userId}`, {
+    method: "DELETE",
+  });
+  if (response.status == 202) {
+    let data = await response.text();
+    return data;
+  } else {
+    let data = await response.json();
+    window.alert(data.details);
+  }
+}
