@@ -144,6 +144,8 @@ let oldUserUsername = document.getElementById("oldUserUsername");
 let oldUserRole = document.getElementById("oldUserRole");
 let oldUserGender = document.getElementById("oldUserGender");
 
+let userFormDynamic = document.getElementById("userFormDynamic");
+
 let appendUsers = (arrayOfUsers) => {
   const userTableBody = document.querySelector("#userTable tbody");
   userTableBody.innerHTML = "";
@@ -174,8 +176,40 @@ let appendUsers = (arrayOfUsers) => {
     editButton.addEventListener("click", () => {
       let userId = tdUserId.textContent;
       updateUserDynamic.style.display = "block";
-      getUserById(userId).then((user) => {
-        console.log("user:", user);
+      oldUserName.innerHTML = tdName.textContent;
+      oldUserUsername.innerHTML = tdUsername.textContent;
+      oldUserRole.innerHTML = tdRole.textContent;
+      oldUserGender.innerHTML = tdGender.textContent;
+
+      userFormDynamic.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        let formData = new FormData(event.target);
+
+        let user = {
+          userId: 0,
+          name: "somename",
+          username: "someusername",
+          role: "somerole",
+          gender: "somegender",
+        };
+
+        user.userId = userId;
+        user.name = formData.get("newUserName");
+        user.username = formData.get("newUserUsername");
+        user.role = tdRole.textContent;
+        user.gender = tdGender.textContent;
+
+        updateUserById(user).then((data) => {
+          if (data.userId == userId) {
+            window.alert(`User ${userId} details updated.`);
+            userFormDynamic.reset();
+            updateUserDynamic.style.display = "none";
+            main();
+          } else {
+            window.alert(data.details);
+          }
+        });
       });
     });
 
@@ -303,5 +337,12 @@ async function updateUserById(user) {
     },
     body: JSON.stringify(user),
   };
-  let response = await fetch(commonUrl + ``, options);
+  let response = await fetch(
+    commonUrl + `/users/update/${user.userId}`,
+    options
+  );
+  let data = await response.json();
+  if (response.status == 202) {
+    return data;
+  }
 }
